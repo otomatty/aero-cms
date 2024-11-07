@@ -1,0 +1,21 @@
+{
+	"name": "@tsudoi/types",
+	"types": "./src/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./src/index.d.ts"
+		},
+		"./user": {
+			"types": "./src/user/index.d.ts"
+		}
+	},
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"dependencies": {
+		"better-supabase-types": "^2.7.6"
+	}
+}

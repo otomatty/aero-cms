@@ -1,0 +1,38 @@
+{
+	"include": [
+		"app",
+		"**/*.ts",
+		"**/*.tsx",
+		"**/.server/**/*.ts",
+		"**/.server/**/*.tsx",
+		"**/.client/**/*.ts",
+		"**/.client/**/*.tsx"
+	],
+	"compilerOptions": {
+		"lib": ["DOM", "DOM.Iterable", "ES2022"],
+		"types": ["@remix-run/node", "vite/client"],
+		"isolatedModules": true,
+		"esModuleInterop": true,
+		"jsx": "react-jsx",
+		// "jsxImportSource": "react",
+		"module": "ESNext",
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"target": "ES2022",
+		"strict": true,
+		"allowJs": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["./app/*"],
+			"@tsudoi-ui/*": ["../../packages/ui/src/*"],
+			"@tsudoi-types/*": ["../../packages/types/src/*"],
+			"@tsudoi-styles/*": ["../../packages/styles/src/*"],
+			"@tsudoi-icons/*": ["../../packages/icons/src/*"]
+		},
+
+		// Vite takes care of building everything, not tsc.
+		"noEmit": true
+	}
+}
