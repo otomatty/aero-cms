@@ -8,7 +8,7 @@ import {
 import type { LinksFunction } from "@remix-run/node";
 import { Toaster } from "@tsudoi-ui/components/ui/toaster";
 
-import "@tsudoi/styles/global.css";
+import "@tsudoi-styles/global.css";
 
 export const links: LinksFunction = () => [
 	{ rel: "preconnect", href: "https://fonts.googleapis.com" },

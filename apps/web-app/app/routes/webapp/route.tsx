@@ -2,6 +2,7 @@ import type { MetaFunction } from "@remix-run/node";
 import { SidebarProvider } from "@tsudoi-ui/components/ui/sidebar";
 import { Outlet } from "@remix-run/react";
 import { AppSidebar } from "@/components/webapp/layouts/AppSidebar";
+import { AppHeader } from "@/components/webapp/layouts/AppHeader";
 
 export const meta: MetaFunction = () => {
 	return [
@@ -14,7 +15,8 @@ export default function WebApp() {
 	return (
 		<SidebarProvider>
 			<AppSidebar />
-			<div className="flex flex-1">
+			<div className="flex-1">
+				<AppHeader />
 				<main>
 					<Outlet />
 				</main>
