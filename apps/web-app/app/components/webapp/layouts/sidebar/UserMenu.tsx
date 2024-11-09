@@ -1,4 +1,4 @@
-import { User, ChevronsUpDown } from "lucide-react";
+import { User, ChevronsUpDown, LogOut } from "lucide-react";
 import {
 	SidebarMenu,
 	SidebarMenuItem,
@@ -17,6 +17,9 @@ import {
 	AvatarFallback,
 	AvatarImage,
 } from "@tsudoi-ui/components/ui/avatar";
+import { useNavigate } from "react-router-dom";
+import supabase from "@/utils/supabase.client";
+import { useToast } from "@tsudoi-ui/hooks/use-toast";
 
 const user = {
 	firstName: "太郎",
@@ -25,9 +28,32 @@ const user = {
 };
 
 export function UserMenu() {
+	const navigate = useNavigate();
+	const { toast } = useToast();
+
 	// イニシャルを生成する関数
 	const getInitials = (firstName: string, lastName: string) => {
 		return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
+	};
+
+	// ログアウト処理の実装
+	const handleLogout = async () => {
+		try {
+			await supabase.auth.signOut();
+			toast({
+				title: "成功",
+				description: "ログアウトしました",
+				status: "success",
+			});
+			navigate("/auth/login"); // ログインページへリダイレクト
+		} catch (error) {
+			console.error("ログアウトエラー:", error);
+			toast({
+				title: "エラー",
+				description: "ログアウトに失敗しました",
+				status: "error",
+			});
+		}
 	};
 
 	return (
@@ -61,6 +87,13 @@ export function UserMenu() {
 							プロフィール
 						</DropdownMenuItem>
 						<DropdownMenuSeparator />
+						<DropdownMenuItem
+							onClick={handleLogout}
+							className="text-red-600 focus:text-red-600 focus:bg-red-50 dark:focus:bg-red-950 dark:text-red-400 cursor-pointer"
+						>
+							<LogOut className="mr-2 h-4 w-4" />
+							ログアウト
+						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
 			</SidebarMenuItem>

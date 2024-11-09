@@ -6,7 +6,6 @@ import type { AuthActionData } from "@/types/auth";
 const SignupSchema = z.object({
 	email: z.string().email("有効なメールアドレスを入力してください"),
 	password: z.string().min(8, "パスワードは8文字以上である必要があります"),
-	name: z.string().min(1, "名前は必須です"),
 });
 
 export async function handleSignupSubmission(
@@ -15,25 +14,19 @@ export async function handleSignupSubmission(
 	const formData = await request.formData();
 	const email = formData.get("email") as string;
 	const password = formData.get("password") as string;
-	const name = formData.get("name") as string;
 
 	try {
-		const validatedData = SignupSchema.parse({ email, password, name });
+		const validatedData = SignupSchema.parse({ email, password });
 		const supabase = createSupabaseServerClient(request);
 
-		const { error } = await supabase.auth.signUp({
+		const { error: signUpError } = await supabase.auth.signUp({
 			email: validatedData.email,
 			password: validatedData.password,
-			options: {
-				data: {
-					name: validatedData.name,
-				},
-			},
 		});
 
-		if (error) {
+		if (signUpError) {
 			return json<AuthActionData>({
-				error: error.message,
+				error: signUpError.message,
 				success: false,
 			});
 		}

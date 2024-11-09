@@ -34,17 +34,6 @@ export default function SignupPage() {
 		<div className="grid gap-4">
 			<Form method="post" className="grid gap-4">
 				<div className="grid gap-2">
-					<Label htmlFor="name">名前</Label>
-					<Input
-						id="name"
-						name="name"
-						type="text"
-						placeholder="山田 太郎"
-						required
-						disabled={isSubmitting}
-					/>
-				</div>
-				<div className="grid gap-2">
 					<Label htmlFor="email">メールアドレス</Label>
 					<Input
 						id="email"

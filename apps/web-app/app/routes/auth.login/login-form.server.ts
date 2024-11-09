@@ -18,7 +18,7 @@ export async function handleLoginSubmission(
 		const validatedData = LoginSchema.parse({ email, password });
 		const supabase = createSupabaseServerClient(request);
 
-		const { error } = await supabase.auth.signInWithPassword({
+		const { data, error } = await supabase.auth.signInWithPassword({
 			email: validatedData.email,
 			password: validatedData.password,
 		});
@@ -26,6 +26,18 @@ export async function handleLoginSubmission(
 		if (error) {
 			return json({ error: error.message }, { status: 400 });
 		}
+
+		// const user = data.user;
+
+		// const { data: userProfile, error: profileError } = await supabase
+		// 	.from("user_profiles")
+		// 	.select("*")
+		// 	.eq("user_id", user.id)
+		// 	.single();
+
+		// if (profileError || !userProfile) {
+		// 	return redirect("/initial-setup");
+		// }
 
 		return redirect("/webapp");
 	} catch (error) {
